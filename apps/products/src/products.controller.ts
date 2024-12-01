@@ -2,7 +2,10 @@ import { REQUESTS } from '@app/common/constants/events';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ProductsService } from './products.service';
-import { CreateProductDto } from '@app/common/dto/create-user.dto';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+} from '@app/common/dto/create-user.dto';
 
 @Controller()
 export class ProductController {
@@ -17,6 +20,12 @@ export class ProductController {
   @MessagePattern(REQUESTS.POST_PRODUCTS)
   async createProduct(@Payload() data: CreateProductDto) {
     const product = this.productService.createProducts(data);
+    return product;
+  }
+
+  @MessagePattern(REQUESTS.PUT_PRODUCT_BY_ID)
+  async updateProduct(@Payload() data: UpdateProductDto) {
+    const product = this.productService.updateProductById(data);
     return product;
   }
 }

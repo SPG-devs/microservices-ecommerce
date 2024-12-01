@@ -1,8 +1,19 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { APP, REQUESTS } from '@app/common/constants/events';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { CreateProductDto } from '@app/common/dto/create-user.dto';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+} from '@app/common/dto/create-user.dto';
 
 @Controller('/products')
 export class ProductsController {
@@ -29,6 +40,21 @@ export class ProductsController {
     try {
       const product = await firstValueFrom(
         this.productClient.send(REQUESTS.POST_PRODUCTS, body),
+      );
+
+      return product; // Return the products from Product Service
+    } catch (error) {
+      console.error('Error fetching products', error);
+      throw error; // Handle errors appropriately
+    }
+  }
+
+  @Put(':id')
+  async updateProduct(@Param('id') id: string, @Body() body: UpdateProductDto) {
+    try {
+      body.id = id;
+      const product = await firstValueFrom(
+        this.productClient.send(REQUESTS.PUT_PRODUCT_BY_ID, body),
       );
 
       return product; // Return the products from Product Service
