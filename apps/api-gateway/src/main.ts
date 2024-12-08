@@ -4,9 +4,11 @@ import { ConfigService } from '@nestjs/config';
 import { connectMicroservicesQueues } from '@app/common/utils';
 import { Queues } from './constants';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { swaggerDoc } from './swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ApiGatewayModule);
+  const app = await NestFactory.create<NestExpressApplication>(ApiGatewayModule);
   connectMicroservicesQueues(app, Queues);
   const configService = app.get(ConfigService);
   app.useGlobalPipes(
@@ -15,7 +17,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  swaggerDoc(app);
   app.listen(configService.get('PORT'));
   Logger.log(`App is running on PORT ${configService.get('PORT')}`);
 }
+
 bootstrap();

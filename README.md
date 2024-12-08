@@ -57,8 +57,8 @@ On the Root directory, The nest-cli.json file is a configuration file used by th
 ### ***To Start a Specific Service***
 To start an individual service, use the nest start command followed by the service name. For example:
 
-#### **API Gateway:**
+#### **API Gateway: On Dev Mode**
 
 ```
-  nest start api-gateway
+  nest start api-gateway --watch
 ```

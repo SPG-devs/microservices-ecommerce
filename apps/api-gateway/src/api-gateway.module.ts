@@ -19,6 +19,8 @@ import { ProductsController } from './controllers/products.controller';
     }),
   ],
   controllers: [ProductsController],
-  providers: [RmqService],
+  providers: [
+    RmqService
+  ],
 })
 export class ApiGatewayModule {}

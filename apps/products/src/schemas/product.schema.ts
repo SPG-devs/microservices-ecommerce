@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { AbstractDocument } from '@app/common';
+import { Document } from 'mongoose';
 
+// Define the schema for the Product model
 @Schema({ versionKey: false })
-export class Product extends AbstractDocument {
-  @Prop()
+export class Product extends Document {
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true, min: 0 })
   price: number;
 }
 

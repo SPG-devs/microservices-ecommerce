@@ -6,6 +6,7 @@ import {
   CreateProductDto,
   UpdateProductDto,
 } from '@app/common/dto/create-user.dto';
+import { Types } from 'mongoose';
 
 @Controller()
 export class ProductController {
@@ -15,6 +16,12 @@ export class ProductController {
   async getProducts() {
     const products = this.productService.getProducts();
     return products; // Send the product data back to the API Gateway
+  }
+
+  @MessagePattern(REQUESTS.GET_PRODUCT_BY_ID)
+  async getProduct(@Payload() id: Types.ObjectId) {
+    const product = this.productService.getProduct(id);
+    return product; // Send the product data back to the API Gateway
   }
 
   @MessagePattern(REQUESTS.POST_PRODUCTS)
