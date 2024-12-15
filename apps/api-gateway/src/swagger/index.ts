@@ -2,8 +2,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 export const swaggerDoc = (app: NestExpressApplication) => {
-  const TITLE =
-    process.env.SWAGGER_DOC_TITLE || 'Vibrate Warsaw Management System';
+  const TITLE = process.env.SWAGGER_DOC_TITLE || 'Ecommerce Management System';
 
   const userConfig = new DocumentBuilder()
     .setTitle(TITLE)
