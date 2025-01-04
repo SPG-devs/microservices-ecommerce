@@ -1,14 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { DatabaseModule, RmqModule } from '@app/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './users/schemas/user.schema';
-import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
-import { UsersRepository } from './users/users.repository';
+import { User, UserSchema } from './schemas/user.schema';
 import { APP } from '@app/common/constants/events';
 
 @Module({
@@ -22,21 +19,19 @@ import { APP } from '@app/common/constants/events';
       }),
       envFilePath: './apps/auth/.env',
     }),
+    RmqModule.register({
+      name: APP.AUTH_SERVICE,
+    }),
     DatabaseModule,
-    UsersModule,
     MongooseModule.forFeature([
       {
         name: User.name,
         schema: UserSchema,
       },
     ]),
-    RmqModule.register({
-      name: APP.AUTH_SERVICE,
-    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, UsersRepository],
+  providers: [AuthService],
 })
 export class AuthModule {
-  constructor(private configService: ConfigService) {}
 }

@@ -1,1 +1,3 @@
-export const AUTH_SERVICE = 'AUTH';
+import { APP } from '@app/common/constants/events';
+
+export const Queues = [APP.AUTH_SERVICE];

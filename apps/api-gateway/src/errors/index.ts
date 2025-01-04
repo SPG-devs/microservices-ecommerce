@@ -4,7 +4,6 @@ import {
   ExecutionContext,
   CallHandler,
 } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
 import { catchError, throwError } from 'rxjs';
 
 @Injectable()

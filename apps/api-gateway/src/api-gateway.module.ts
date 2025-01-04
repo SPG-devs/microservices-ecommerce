@@ -4,12 +4,25 @@ import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { APP } from '@app/common/constants/events';
 import { ProductsController } from './controllers/products.controller';
+import { UsersController } from './controllers/users.controller';
+
+const serviceAppNames = [
+  APP.PRODUCTS_SERVICE,
+  APP.AUTH_SERVICE,
+  // Add more services here as needed
+];
+
+const createRmqModules = (moduleNames: string[]) => {
+  return moduleNames.map((serviceName) => {
+    return RmqModule.register({
+      name: serviceName,
+    })
+  });
+};
 
 @Module({
   imports: [
-    RmqModule.register({
-      name: APP.PRODUCTS_SERVICE,
-    }),
+    ...createRmqModules(serviceAppNames),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -18,9 +31,9 @@ import { ProductsController } from './controllers/products.controller';
       envFilePath: './apps/api-gateway/.env',
     }),
   ],
-  controllers: [ProductsController],
+  controllers: [UsersController, ProductsController],
   providers: [
     RmqService
   ],
 })
-export class ApiGatewayModule {}
+export class ApiGatewayModule { }
