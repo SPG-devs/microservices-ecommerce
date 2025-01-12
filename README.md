@@ -51,6 +51,13 @@ package.json         # Project metadata and scripts
 
 ```
 
+## **Dependencies**
+- [Docker](#docker)
+- [NodeJs](#nodejs)
+
+### How to start each App
+This application rely on the installation of Docker and NodeJs in the Host machine...Kindly download this before running the program...
+
 ## **How to start each App**
 On the Root directory, The nest-cli.json file is a configuration file used by the Nest CLI to manage the structure, build, and startup behavior of a NestJS application. It allows you to define settings for your project, especially useful in monorepo setups.
 
