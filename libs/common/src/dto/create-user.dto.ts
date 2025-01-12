@@ -27,16 +27,13 @@ export class UpdateProductDto {
 
 export class CreateUserDto {
   @IsString()
-  @IsOptional()
   name: string;
 
   @IsString()
-  @IsOptional()
   email: string;
 
-  @IsNumber()
-  @IsOptional()
-  password: number;
+  @IsString()
+  password: string;
 }
 
 export class UpdateUserDto {

@@ -55,7 +55,7 @@ export class ProductsController {
   }
 
   @Post()
-  async createProducts(@Body() body: CreateProductDto) {
+  async createProduct(@Body() body: CreateProductDto) {
     try {
       const product = await firstValueFrom(
         this.productClient.send(REQUESTS.POST_PRODUCTS, body),

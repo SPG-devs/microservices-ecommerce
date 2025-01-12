@@ -13,7 +13,9 @@ import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import {
   CreateProductDto,
+  CreateUserDto,
   UpdateProductDto,
+  UpdateUserDto,
 } from '@app/common/dto/create-user.dto';
 import { ParseObjectIdPipe } from '../pipes';
 import { ApiParam } from '@nestjs/swagger';
@@ -55,7 +57,7 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(@Body() body: CreateProductDto) {
+  async createUser(@Body() body: CreateUserDto) {
     try {
       const user = await firstValueFrom(
         this.userClient.send(AUTH_REQUESTS.POST_USERS, body),
@@ -69,7 +71,7 @@ export class UsersController {
   }
 
   @Put('/user/:id')
-  async updateUser(@Param('id') id: string, @Body() body: UpdateProductDto) {
+  async updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     try {
       body.id = id;
       const user = await firstValueFrom(
