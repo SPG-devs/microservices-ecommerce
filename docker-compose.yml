@@ -1,15 +1,35 @@
 version: '3.8'
 services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./apps/api-gateway/Dockerfile
+      target: development
+    command: npm run start:dev api-gateway
+    container_name: api-gateway
+    networks:
+      - app-network
+    ports:
+      - '3001:3001'
+    env_file:
+      - ./apps/api-gateway/.env.production
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
   auth:
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
       target: development
     command: npm run start:dev auth
-    ports:
-      - '3001:3001'
+    container_name: auth
+    networks:
+      - app-network
     env_file:
-      - ./apps/auth/.env
+      - ./apps/auth/.env.production
     depends_on:
       - mongodb-auth
       - rabbitmq
@@ -23,8 +43,11 @@ services:
       dockerfile: ./apps/products/Dockerfile
       target: development
     command: npm run start:dev products
+    container_name: products
+    networks:
+      - app-network
     env_file:
-      - ./apps/products/.env
+      - ./apps/products/.env.production
     depends_on:
       - mongodb-products
       - rabbitmq
@@ -34,12 +57,18 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: rabbitmq
+    networks:
+      - app-network
     ports:
       - '5672:5672'
       - '15672:15672'     # For RabbitMQ Management Console
 
   mongodb-auth:
     image: mongo
+    container_name: mongodb-auth
+    networks:
+      - app-network
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password123
@@ -47,9 +76,18 @@ services:
       - mongodb_auth_data:/data/db
     ports:
       - '27019:27017'
+    healthcheck:
+      test: ["CMD", "mongo", "--username", "root", "--password", "password123", "--eval", "print('connected')"]
+      interval: 30s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
 
   mongodb-products:
     image: mongo
+    container_name: mongodb-prod
+    networks:
+      - app-network
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password123
@@ -63,3 +101,7 @@ volumes:
     driver: local
   mongodb_products_data:
     driver: local
+
+networks:
+  app-network:
+    driver: bridge

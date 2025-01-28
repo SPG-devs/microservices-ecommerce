@@ -52,20 +52,28 @@ package.json         # Project metadata and scripts
 ```
 
 ## **Dependencies**
-- [Docker](#docker)
-- [NodeJs](#nodejs)
+- [Docker](#http://docker.com)
 
-### How to start each App
-This application rely on the installation of Docker and NodeJs in the Host machine...Kindly download this before running the program...
+### Docker Approach
+This application rely on the installation of Docker in the Host machine...Kindly download this before running the program...
+After Docker is installed, at the root level of the repo folder, open your terminal and run the below command
 
-## **How to start each App**
-On the Root directory, The nest-cli.json file is a configuration file used by the Nest CLI to manage the structure, build, and startup behavior of a NestJS application. It allows you to define settings for your project, especially useful in monorepo setups.
-
-### ***To Start a Specific Service***
-To start an individual service, use the nest start command followed by the service name. For example:
-
-#### **API Gateway: On Dev Mode**
-
+### ***To Start all Services***
 ```
-  nest start api-gateway --watch
+  docker compose up -d
+```
+### App is running on http://localhost:3001/api/docs
+### RabbitMq is running on http://localhost:15672
+- ***rabbitmq credential email: admin***
+- ***rabbitmq credential password: admin***
+
+
+### ***To View all running Services***
+```
+  docker ps
+```
+
+### ***To Stop all Services***
+```
+  docker compose down
 ```
