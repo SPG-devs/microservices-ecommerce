@@ -58,15 +58,20 @@ package.json         # Project metadata and scripts
 This application rely on the installation of Docker in the Host machine...Kindly download this before running the program...
 After Docker is installed, at the root level of the repo folder, open your terminal and run the below command
 
+### ***To Pull from Git repo***
+```
+git clone https://github.com/SPG-devs/microservices-ecommerce
+cd microservices-ecommerce
+```
+
 ### ***To Start all Services***
 ```
   docker compose up -d
 ```
-### App is running on http://localhost:3001/api/docs
+### API-Gateway is running on http://localhost:3001/api/docs
 ### RabbitMq is running on http://localhost:15672
 - ***rabbitmq credential email: admin***
 - ***rabbitmq credential password: admin***
-
 
 ### ***To View all running Services***
 ```
