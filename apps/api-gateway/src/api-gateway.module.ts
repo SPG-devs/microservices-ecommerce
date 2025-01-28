@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP } from '@app/common/constants/events';
 import { ProductsController } from './controllers/products.controller';
 import { UsersController } from './controllers/users.controller';
+import { getEnvironment } from '@app/common/constants/config';
 
 const serviceAppNames = [
   APP.PRODUCTS_SERVICE,
@@ -28,7 +29,7 @@ const createRmqModules = (moduleNames: string[]) => {
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
       }),
-      envFilePath: './apps/api-gateway/.env',
+      envFilePath: `./apps/api-gateway/.env.${getEnvironment()}`,
     }),
   ],
   controllers: [UsersController, ProductsController],

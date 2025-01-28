@@ -7,9 +7,7 @@ import { DatabaseModule, RmqModule } from '@app/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.schema';
 import { APP } from '@app/common/constants/events';
-
-const NODE_ENV = process.env.NODE_ENV
-const envPath = NODE_ENV === 'production' ? NODE_ENV : 'development'
+import { getEnvironment } from '@app/common/constants/config';
 
 @Module({
   imports: [
@@ -20,7 +18,7 @@ const envPath = NODE_ENV === 'production' ? NODE_ENV : 'development'
         MONGODB_DB_NAME: Joi.string().required(),
         PORT: Joi.number().required(),
       }),
-      envFilePath: `./apps/auth/.env.${envPath}`,
+      envFilePath: `./apps/auth/.env.${getEnvironment()}`,
     }),
     RmqModule.register({
       name: APP.AUTH_SERVICE,
@@ -39,6 +37,6 @@ const envPath = NODE_ENV === 'production' ? NODE_ENV : 'development'
 export class AuthModule {
 
   constructor(private config: ConfigService) {
-    console.log(config.get('MONGODB_URI'), 'MONGODB_URI', envPath)
+    console.log(config.get('MONGODB_URI'), 'MONGODB_URI', getEnvironment())
   }
 }

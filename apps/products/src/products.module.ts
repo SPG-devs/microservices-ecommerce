@@ -7,9 +7,7 @@ import { ProductController } from './products.controller';
 import { ProductsService } from './products.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from './schemas/product.schema';
-
-const NODE_ENV = process.env.NODE_ENV
-const envPath = NODE_ENV === 'production' ? NODE_ENV : 'development'
+import { getEnvironment } from '@app/common/constants/config';
 
 @Module({
   imports: [
@@ -20,7 +18,7 @@ const envPath = NODE_ENV === 'production' ? NODE_ENV : 'development'
         MONGODB_DB_NAME: Joi.string().required(),
         PORT: Joi.number().required(),
       }),
-      envFilePath: `./apps/products/.env.${envPath}`,
+      envFilePath: `./apps/products/.env.${getEnvironment()}`,
     }),
     RmqModule.register({ name: APP.PRODUCTS_SERVICE }),
     DatabaseModule,
