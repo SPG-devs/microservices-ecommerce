@@ -76,12 +76,6 @@ services:
       - mongodb_auth_data:/data/db
     ports:
       - '27019:27017'
-    healthcheck:
-      test: ["CMD", "mongo", "--username", "root", "--password", "password123", "--eval", "print('connected')"]
-      interval: 30s
-      retries: 5
-      start_period: 5s
-      timeout: 10s
 
   mongodb-products:
     image: mongo
