@@ -20,10 +20,10 @@ import { getEnvironment } from '@app/common/constants/config';
       }),
       envFilePath: `./apps/auth/.env.${getEnvironment()}`,
     }),
+    DatabaseModule,
     RmqModule.register({
       name: APP.AUTH_SERVICE,
     }),
-    DatabaseModule,
     MongooseModule.forFeature([
       {
         name: User.name,
