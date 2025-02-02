@@ -1,4 +1,4 @@
-# NestJS Monorepo
+# NestJS Microservice Monorepo
 
 This repository is a **NestJS Monorepo** designed for a scalable microservices architecture. The project is divided into multiple services and shared libraries, enabling modular development and efficient code sharing.
 
@@ -52,7 +52,7 @@ package.json         # Project metadata and scripts
 ```
 
 ## **Dependencies**
-- [Docker](#http://docker.com)
+- [Docker](https://www.docker.com/products/docker-desktop/)
 
 ### Docker Approach
 This application rely on the installation of Docker in the Host machine...Kindly download this before running the program...
@@ -68,13 +68,17 @@ cd microservices-ecommerce
 ```
   docker compose up -d
 ```
-### API-Gateway is running on http://localhost:3001/api/docs
-### RabbitMq is running on http://localhost:15672
-- ***rabbitmq credential email: admin***
-- ***rabbitmq credential password: admin***
+| Service                          | URL / Credentials                                         |
+|-----------------------------------|-----------------------------------------------------------|
+| **API Gateway**                   | <a href="http://localhost:3001/api/docs" target="_blank">localhost:3001/api/docs</a> |
+| **RabbitMQ Admin**                | <a href="http://localhost:15672" target="_blank">localhost:15672</a> |
+| **RabbitMQ Email**                | `admin`                                                   |
+| **RabbitMQ Password**             | `admin`                                                   |
+| **System Architecture Design**    | <a href="https://app.diagrams.net/#G1kUPl7k6GozjpArDuke6BprujtHld5S9H#%7B%22pageId%22%3A%22SBDJbytT5LhzHjiACsQx%22%7D" target="_blank">Diagrams.net Design</a> |
+
 
 ### System Architechure Design
-https://app.diagrams.net/#G1kUPl7k6GozjpArDuke6BprujtHld5S9H#%7B%22pageId%22%3A%22SBDJbytT5LhzHjiACsQx%22%7D
+![system architechure design](https://ik.imagekit.io/nw0k4ly1p/Microservice%20Architechure.drawio.png?updatedAt=1738493937269)
 
 
 ### ***To View all running Services***
